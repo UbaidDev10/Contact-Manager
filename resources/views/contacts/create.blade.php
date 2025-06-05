@@ -1,99 +1,76 @@
 <x-app-layout>
+    <x-slot name="header">
+        <div class="flex justify-between items-center">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Add New Contact') }}
+            </h2>
+            <a href="{{ route('contacts.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-100 border border-transparent rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-200 focus:bg-gray-200 active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                Back to Contacts
+            </a>
+        </div>
+    </x-slot>
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6">
-                    <div class="mb-6">
-                        <h2 class="text-2xl font-semibold text-gray-800">Add New Contact</h2>
-                    </div>
-
-                    <nav class="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
-                        <div class="flex items-center space-x-8">
-                            <a href="{{ route('dashboard') }}" class="font-semibold text-gray-800 hover:text-blue-600 {{ request()->routeIs('dashboard') ? 'text-blue-600' : '' }}">Dashboard</a>
-                            <a href="{{ route('contacts.index') }}" class="font-semibold text-gray-800 hover:text-blue-600 {{ request()->routeIs('contacts.*') ? 'text-blue-600' : '' }}">Contacts</a>
-                            <a href="{{ route('tags.index') }}" class="font-semibold text-gray-800 hover:text-blue-600 {{ request()->routeIs('tags.*') ? 'text-blue-600' : '' }}">Tags</a>
-                        </div>
-                        <div class="flex items-center space-x-4">
-                            <span class="text-gray-600">{{ Auth::user()->name }}</span>
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="text-red-500 hover:text-red-700">Logout</button>
-                            </form>
-                        </div>
-                    </nav>
-
+                <div class="p-6 text-gray-900">
                     <form action="{{ route('contacts.store') }}" method="POST" class="space-y-6">
                         @csrf
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- First Name -->
                             <div>
-                                <label for="first_name" class="block text-sm font-medium text-gray-700">First Name</label>
-                                <input type="text" name="first_name" id="first_name" value="{{ old('first_name') }}"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200"
-                                    required>
-                                @error('first_name')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                @enderror
+                                <x-input-label for="first_name" value="First Name" />
+                                <x-text-input id="first_name" name="first_name" type="text" class="mt-1 block w-full"
+                                    value="{{ old('first_name') }}" required />
+                                <x-input-error :messages="$errors->get('first_name')" class="mt-2" />
                             </div>
 
                             <!-- Last Name -->
                             <div>
-                                <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name</label>
-                                <input type="text" name="last_name" id="last_name" value="{{ old('last_name') }}"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200"
-                                    required>
-                                @error('last_name')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                @enderror
+                                <x-input-label for="last_name" value="Last Name" />
+                                <x-text-input id="last_name" name="last_name" type="text" class="mt-1 block w-full"
+                                    value="{{ old('last_name') }}" required />
+                                <x-input-error :messages="$errors->get('last_name')" class="mt-2" />
                             </div>
 
                             <!-- Email -->
                             <div>
-                                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                                <input type="email" name="email" id="email" value="{{ old('email') }}"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200"
-                                    required>
-                                @error('email')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                @enderror
+                                <x-input-label for="email" value="Email" />
+                                <x-text-input id="email" name="email" type="email" class="mt-1 block w-full"
+                                    value="{{ old('email') }}" required />
+                                <x-input-error :messages="$errors->get('email')" class="mt-2" />
                             </div>
 
                             <!-- Phone -->
                             <div>
-                                <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
-                                <input type="tel" name="phone" id="phone" value="{{ old('phone') }}"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200">
-                                @error('phone')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                @enderror
+                                <x-input-label for="phone" value="Phone" />
+                                <x-text-input id="phone" name="phone" type="tel" class="mt-1 block w-full"
+                                    value="{{ old('phone') }}" />
+                                <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                             </div>
 
                             <!-- Company -->
                             <div>
-                                <label for="company" class="block text-sm font-medium text-gray-700">Company</label>
-                                <input type="text" name="company" id="company" value="{{ old('company') }}"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200">
-                                @error('company')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                @enderror
+                                <x-input-label for="company" value="Company" />
+                                <x-text-input id="company" name="company" type="text" class="mt-1 block w-full"
+                                    value="{{ old('company') }}" />
+                                <x-input-error :messages="$errors->get('company')" class="mt-2" />
                             </div>
 
                             <!-- Job Title -->
                             <div>
-                                <label for="job_title" class="block text-sm font-medium text-gray-700">Job Title</label>
-                                <input type="text" name="job_title" id="job_title" value="{{ old('job_title') }}"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200">
-                                @error('job_title')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                @enderror
+                                <x-input-label for="job_title" value="Job Title" />
+                                <x-text-input id="job_title" name="job_title" type="text" class="mt-1 block w-full"
+                                    value="{{ old('job_title') }}" />
+                                <x-input-error :messages="$errors->get('job_title')" class="mt-2" />
                             </div>
                         </div>
 
                         <!-- Tags -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Tags</label>
-                            <div class="flex flex-wrap gap-2">
+                            <x-input-label value="Tags" />
+                            <div class="mt-2 flex flex-wrap gap-2">
                                 @foreach($tags as $tag)
                                     <label class="cursor-pointer">
                                         <input type="checkbox" name="tags[]" value="{{ $tag->id }}" class="sr-only peer"
@@ -106,31 +83,26 @@
                                     </label>
                                 @endforeach
                             </div>
-                            @error('tags')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
+                            <x-input-error :messages="$errors->get('tags')" class="mt-2" />
                         </div>
 
                         <!-- Notes -->
                         <div>
-                            <label for="notes" class="block text-sm font-medium text-gray-700">Notes</label>
+                            <x-input-label for="notes" value="Notes" />
                             <textarea name="notes" id="notes" rows="4"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200">{{ old('notes') }}</textarea>
-                            @error('notes')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
+                                class="mt-1 block w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-md shadow-sm">{{ old('notes') }}</textarea>
+                            <x-input-error :messages="$errors->get('notes')" class="mt-2" />
                         </div>
 
                         <!-- Submit Button -->
                         <div class="flex justify-end space-x-3">
                             <a href="{{ route('contacts.index') }}"
-                                class="bg-gray-100 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-200">
+                                class="inline-flex items-center px-4 py-2 bg-gray-100 border border-transparent rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-200 focus:bg-gray-200 active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150">
                                 Cancel
                             </a>
-                            <button type="submit"
-                                class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                            <x-primary-button>
                                 Create Contact
-                            </button>
+                            </x-primary-button>
                         </div>
                     </form>
                 </div>

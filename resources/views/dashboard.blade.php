@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-600 leading-tight">
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- Navigation Bar -->
-            <nav class="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
+            {{-- <nav class="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
                 <div class="flex items-center space-x-8">
                     <a href="{{ route('dashboard') }}" class="font-semibold text-gray-800 hover:text-blue-600 {{ request()->routeIs('dashboard') ? 'text-blue-600' : '' }}">Dashboard</a>
                     <a href="{{ route('contacts.index') }}" class="font-semibold text-gray-800 hover:text-blue-600 {{ request()->routeIs('contacts.*') ? 'text-blue-600' : '' }}">Contacts</a>
@@ -21,7 +21,7 @@
                         <button type="submit" class="text-red-500 hover:text-red-700">Logout</button>
                     </form>
                 </div>
-            </nav>
+            </nav> --}}
 
             <!-- Welcome Section -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">

@@ -1,48 +1,50 @@
 <x-app-layout>
-    <div class="container mx-auto px-4 py-8">
-        <div class="max-w-2xl mx-auto">
-            <nav class="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
-                <div class="flex items-center space-x-8">
-                    <a href="{{ route('dashboard') }}" class="font-semibold text-gray-800 hover:text-blue-600 {{ request()->routeIs('dashboard') ? 'text-blue-600' : '' }}">Dashboard</a>
-                    <a href="{{ route('contacts.index') }}" class="font-semibold text-gray-800 hover:text-blue-600 {{ request()->routeIs('contacts.*') ? 'text-blue-600' : '' }}">Contacts</a>
-                    <a href="{{ route('tags.index') }}" class="font-semibold text-gray-800 hover:text-blue-600 {{ request()->routeIs('tags.*') ? 'text-blue-600' : '' }}">Tags</a>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <span class="text-gray-600">{{ Auth::user()->name }}</span>
-                    <form method="POST" action="{{ route('logout') }}">
+    <x-slot name="header">
+        <div class="flex justify-between items-center">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Create Tag') }}
+            </h2>
+            <a href="{{ route('tags.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-700 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-600 focus:bg-gray-600 active:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                Back to Tags
+            </a>
+        </div>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <form action="{{ route('tags.store') }}" method="POST" class="space-y-6">
                         @csrf
-                        <button type="submit" class="text-red-500 hover:text-red-700">Logout</button>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <x-input-label for="name" value="Tag Name" class="text-gray-700" />
+                                <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
+                                    value="{{ old('name') }}" required />
+                                <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="color" value="Color" class="text-gray-700" />
+                                <input type="color" name="color" id="color" required
+                                    class="mt-1 block w-full h-10 rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500"
+                                    value="{{ old('color', '#3b82f6') }}">
+                                <x-input-error :messages="$errors->get('color')" class="mt-2" />
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end space-x-3">
+                            <a href="{{ route('tags.index') }}"
+                                class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
+                                Cancel
+                            </a>
+                            <x-primary-button>
+                                Create Tag
+                            </x-primary-button>
+                        </div>
                     </form>
                 </div>
-            </nav>
-            <h1 class="text-2xl font-bold text-gray-800 mb-6">Create New Tag</h1>
-            <form action="{{ route('tags.store') }}" method="POST">
-                @csrf
-                <div class="mb-4">
-                    <label for="name" class="block text-sm font-medium text-gray-700">Tag Name</label>
-                    <input type="text" name="name" id="name" required
-                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                           value="{{ old('name') }}">
-                    @error('name')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-                <div class="mb-4">
-                    <label for="color" class="block text-sm font-medium text-gray-700">Color</label>
-                    <input type="color" name="color" id="color" required
-                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                           value="{{ old('color', '#3b82f6') }}">
-                    @error('color')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-                <div class="flex justify-end">
-                    <button type="submit"
-                            class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition duration-200">
-                        Create Tag
-                    </button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </x-app-layout>

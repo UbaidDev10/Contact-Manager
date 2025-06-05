@@ -43,7 +43,16 @@ class ContactController extends Controller
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:contacts,email',
-            'phone' => 'nullable|string|max:20',
+            'phone' => [
+                'nullable',
+                'string',
+                'max:20',
+                function ($attribute, $value, $fail) {
+                    if ($value && auth()->user()->contacts()->where('phone', $value)->exists()) {
+                        $fail('This phone number is already in use by another contact.');
+                    }
+                },
+            ],
             'company' => 'nullable|string|max:255',
             'job_title' => 'nullable|string|max:255',
             'notes' => 'nullable|string|max:5000',
@@ -98,7 +107,19 @@ class ContactController extends Controller
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:contacts,email,' . $contact->id,
-            'phone' => 'nullable|string|max:20',
+            'phone' => [
+                'nullable',
+                'string',
+                'max:20',
+                function ($attribute, $value, $fail) use ($contact) {
+                    if ($value && auth()->user()->contacts()
+                        ->where('phone', $value)
+                        ->where('id', '!=', $contact->id)
+                        ->exists()) {
+                        $fail('This phone number is already in use by another contact.');
+                    }
+                },
+            ],
             'company' => 'nullable|string|max:255',
             'job_title' => 'nullable|string|max:255',
             'notes' => 'nullable|string|max:5000',

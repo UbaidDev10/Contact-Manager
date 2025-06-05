@@ -7,7 +7,7 @@
                         <h2 class="text-2xl font-semibold text-gray-800">Edit Contact</h2>
                     </div>
 
-                    <nav class="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
+                    {{-- <nav class="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
                         <div class="flex items-center space-x-8">
                             <a href="{{ route('dashboard') }}" class="font-semibold text-gray-800 hover:text-blue-600 {{ request()->routeIs('dashboard') ? 'text-blue-600' : '' }}">Dashboard</a>
                             <a href="{{ route('contacts.index') }}" class="font-semibold text-gray-800 hover:text-blue-600 {{ request()->routeIs('contacts.*') ? 'text-blue-600' : '' }}">Contacts</a>
@@ -20,7 +20,7 @@
                                 <button type="submit" class="text-red-500 hover:text-red-700">Logout</button>
                             </form>
                         </div>
-                    </nav>
+                    </nav> --}}
 
                     <form action="{{ route('contacts.update', $contact) }}" method="POST" class="space-y-6">
                         @csrf
