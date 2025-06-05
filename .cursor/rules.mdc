@@ -1,0 +1,102 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+### 📄 `rules.mdc`
+
+````md
+# Cursor-Based Processing Requirement — Laravel Project
+
+## 🎯 Objective
+
+Implement cursor-based processing for large dataset operations (e.g., exports, batch updates, cleanup tasks) to ensure memory-efficient and scalable handling of Eloquent model records.
+
+---
+
+## ✅ Requirements
+
+1. **Use Laravel's `cursor()` method** for any data processing task involving large tables (10,000+ records).
+   - Must avoid `all()`, `get()`, or eager-loading unless justified.
+
+2. Create a **Service class** that implements the following contract:
+
+```php
+interface CursorProcessorInterface
+{
+    public function handleCursor(): void;
+}
+````
+
+3. Cursor logic must:
+
+   * Process one row at a time using `->each()`
+   * Include type-hinting for models (e.g., `function(Product $product)`)
+   * Avoid loading relationships inside the loop
+   * Use memory-safe practices (`unset()` if necessary)
+
+4. If the operation will be queued:
+
+   * Dispatch from a job using `dispatch()` or `chunkById()`
+   * Worker must support long-running operations (adjust memory/time limits if needed)
+
+5. Progress tracking:
+
+   * Log memory usage before and after the loop
+   * Log batch progress every N (e.g., 500) records
+
+---
+
+## 💡 Example Template
+
+```php
+class ProcessOldOrdersService implements CursorProcessorInterface
+{
+    public function handleCursor(): void
+    {
+        Order::where('status', 'canceled')
+            ->where('created_at', '<', now()->subMonths(6))
+            ->cursor()
+            ->each(function (Order $order) {
+                // Process record
+                // e.g., archive, delete, export, notify
+            });
+    }
+}
+```
+
+---
+
+## 🛑 DO NOT
+
+* Do not use `get()` for large datasets
+* Do not eager-load (`with()`) unless necessary
+* Do not nest DB transactions inside a cursor loop unless scoped properly
+
+---
+
+## 📁 Output Directory Structure
+
+| Component            | Location                                     |
+| -------------------- | -------------------------------------------- |
+| Service Class        | `app/Services/Cursor/`                       |
+| Contract Interface   | `app/Contracts/CursorProcessorInterface.php` |
+| Related Job (if any) | `app/Jobs/`                                  |
+
+---
+
+## 📤 Deliverable
+
+* Service class with working `handleCursor()` implementation
+* Example execution trigger (CLI command or Job)
+* Logging of processing and memory usage
+* Unit test (optional but recommended)
+
+---
+
+## 📚 Reference Docs
+
+* Laravel Cursor Docs: [https://laravel.com/docs/10.x/eloquent#cursors](mdc:https:/laravel.com/docs/10.x/eloquent#cursors)
+* Laravel Jobs & Queues: [https://laravel.com/docs/10.x/queues](mdc:https:/laravel.com/docs/10.x/queues)
+
+---

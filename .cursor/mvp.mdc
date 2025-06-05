@@ -1,0 +1,108 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+Here’s a well-structured **MVP PRD (Product Requirements Document)** for a **Contacts Manager** web application — focused on essential functionality to deliver a usable and scalable **Minimum Viable Product**.
+
+---
+
+## 📄 MVP PRD — Contacts Manager
+
+### 📌 Product Overview
+
+The **Contacts Manager** MVP is a web application that allows users to add, edit, delete, search, and categorize contacts. It serves as a lightweight CRM foundation and can be extended later with integrations and automation.
+
+---
+
+### ✅ Objectives
+
+* Provide a simple, intuitive interface for managing contacts.
+* Store all contact data securely.
+* Enable quick search and filtering.
+* Build a solid backend API for future integrations.
+
+---
+
+### 🧑‍💻 Target Users
+
+* Individual professionals
+* Small businesses
+* Sales teams needing a basic contact CRM
+
+---
+
+## 🧱 Core Features (MVP Scope)
+
+### 1. **Authentication**
+
+* [x] User registration/login
+* [x] Password hashing
+* [x] Email verification (optional for MVP)
+
+### 2. **Contacts CRUD**
+
+* [x] Add contact
+* [x] Edit contact
+* [x] Delete contact
+* [x] View contact details
+
+### 3. **Contact Fields**
+
+* Name (first, last)
+* Email
+* Phone number
+* Company
+* Job title
+* Tags (multi-select)
+* Notes
+
+### 4. **Search & Filtering**
+
+* [x] Search by name, email, or tag
+* [x] Filter by tag or company
+
+### 5. **Tag Management**
+
+* [x] Create new tags
+* [x] Assign multiple tags to a contact
+
+### 6. **Activity Log (basic)**
+
+* [x] Show history of actions: "Created", "Updated", "Deleted"
+
+---
+
+## 🚫 Excluded from MVP (Future Scope)
+
+* Contact import/export (CSV, VCard)
+* Bulk actions
+* Email/SMS integrations
+* Contact sharing & permissions
+* Calendar or task integration
+
+---
+
+## ⚙️ Technical Requirements
+
+### Backend
+
+* Language: PHP
+* Framework: Laravel
+* Database: MySQL or PostgreSQL
+* Auth: Laravel Sanctum or Laravel Breeze
+
+### Frontend
+
+* Laravel Blade (MVP)
+
+## 📁 Deliverables
+
+| Component            | Description             |
+| -------------------- | ----------------------- |
+| Auth Module          | Login/register/logout   |
+| Contact CRUD         | Full backend & frontend |
+| Search/Filter Module | Tag + name/email search |
+| Database Schema      | Contacts, Tags, Users   |
+| Postman Collection   | If API is exposed       |
+| README               | Setup instructions      |

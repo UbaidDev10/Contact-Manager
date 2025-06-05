@@ -1,0 +1,43 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Project Context and Rules for ContactManager (Laravel)
+
+## Project Overview
+- This is a Laravel 12.x project named ContactManager, located at `/home/vrpk/Desktop/ContactManager`.
+- The project is Dockerized using Laravel Sail, with services for MySQL, Redis, and Meilisearch.
+- The application is an MVP CRM tool focused on managing contacts.
+
+## Features
+- CRUD operations for contacts (add, edit, delete, view).
+- Search contacts by name or tag.
+- Simple, functional UI using Blade templates.
+- Data is stored in MySQL (via Docker).
+
+## Structure & Best Practices
+- Follows Laravel's recommended structure: Models, Controllers, Migrations, Resourceful Routes, and Blade Views.
+- Uses resource controller (`ContactController`) and resource routes for contacts.
+- Model (`Contact`) uses fillable fields: name, email, phone, tag.
+- Migrations define the schema for contacts, including all required fields.
+- Views are in `resources/views/contacts/` and use a shared layout in `resources/views/layouts/app.blade.php`.
+- All business logic is in controllers, not views.
+- UI is intentionally simple for MVP, but easily extendable.
+
+## Development Rules
+- Use Laravel Sail for all local development and artisan commands.
+- All new features should follow Laravel's conventions (resource controllers, migrations, validation, etc.).
+- UI changes should be made in Blade templates.
+- Database changes must be made via migrations.
+- All code should be clean, readable, and commented where necessary.
+- Use `.env` for environment-specific configuration.
+
+## Usage
+- Access the app at `http://localhost/contacts` (or the configured port).
+- Use `./vendor/bin/sail up -d` to start the environment.
+- Use `./vendor/bin/sail artisan` for artisan commands.
+
+## Onboarding
+- New developers should read this file and the README.md for setup instructions.
+- All contributions should follow Laravel and project-specific best practices as outlined here.
